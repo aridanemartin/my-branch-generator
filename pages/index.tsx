@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useFetchCharacter } from "../hooks/useFetchCharacter";
 import styles from "../shared/styles/Home.module.scss";
+import { Select } from "../components/Select/Select";
+import { CasingTypes, SymbolTypes, TaskTypes } from "../const/TaskTypes";
+import { formatCasing } from "../helpers/formatCasing";
 
 export const getRandomArbitrary = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -8,17 +11,15 @@ export const getRandomArbitrary = (min: number, max: number): number => {
 
 export default function Home() {
   console.log("render home");
-
   const [apiCharacterSelected, setApiCharacterSelected] = useState("");
   const [selectedUrl, setSelectedUrl] = useState("");
-  const [selectedType, setSelectedType] = useState("");
   const [limitOfResults, setLimitOfResults] = useState(0);
   const [inputValues, setInputValue] = useState({
     versionNumber: "",
     teamName: "",
     randomWord: "",
     randomAdjective: "",
-    type: "",
+    typeOfTask: "",
   });
 
   const teamNameInput = useRef();
@@ -75,43 +76,29 @@ export default function Home() {
     setInputValue({ ...inputValues, randomAdjective: data[0] });
   };
 
-  const handleType = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    switch (e.target.value) {
-      case "bug":
-        setSelectedType("bug");
-        break;
-      case "feature":
-        setSelectedType("feature");
-        break;
-      case "notask":
-        setSelectedType("notask");
-        break;
-      case "hotfix":
-        setSelectedType("hotfix");
-        break;
-      default:
-        break;
-    }
+  const handleTypeOfTask = (typeOfTaskFormatted: string) => {
+    setInputValue({ ...inputValues, typeOfTask: typeOfTaskFormatted });
   };
-  console.log(teamNameInput?.current);
 
   return (
     <div className={styles.home}>
       <div className={styles.inputWrapper}>
         <p>Branch Name generator</p>
 
-        <p>Type</p>
-        <select className={styles.select} onChange={handleType}>
-          <option value="">--Please choose an option--</option>
-          <option value="bug">Bug</option>
-          <option value="feature">Feature</option>
-          <option value="notask">No Task</option>
-          <option value="hotfix">Hotfix</option>
-          <option value="wip">WIP</option>
-          <option value="test">Test</option>
-        </select>
-        <p>Team Name</p>
+        <Select
+          baseClassName={styles.select}
+          handleResult={handleTypeOfTask}
+          title="Type of Task"
+          wordValues={Object.values(TaskTypes)}
+          casingValues={[
+            CasingTypes.LOWER,
+            CasingTypes.FIRSTUPPER,
+            CasingTypes.ALLUPPER,
+          ]}
+          symbolValues={[SymbolTypes.DASH, SymbolTypes.SLASH]}
+        />
 
+        <p>Team Name</p>
         <input
           type="text"
           name="teamName"
@@ -162,8 +149,10 @@ export default function Home() {
           <p>loading</p>
         ) : (
           <p>
-            {selectedType}/{inputValues.teamName}-{inputValues.randomWord}-
-            {inputValues.randomAdjective}
+            {inputValues.typeOfTask}
+
+            {/* /{inputValues.teamName}-{inputValues.randomWord}-
+            {inputValues.randomAdjective} */}
           </p>
         )}
       </div>
