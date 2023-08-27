@@ -16,7 +16,6 @@ export const useFetchCharacter = (url: string, characterNumber: number) => {
   const [shouldRefetch, refetch] = useState({});
 
   useEffect(() => {
-    console.log("useEffect");
     fetchCharacter();
   }, [shouldRefetch]);
 
@@ -28,7 +27,7 @@ export const useFetchCharacter = (url: string, characterNumber: number) => {
 
       const response = await fetch(`${url}${characterNumber}`);
       const data = await response.json();
-      console.log("===>", data?.name);
+
       setCharacter(data?.name);
       setIsLoading(false);
     } catch (error) {

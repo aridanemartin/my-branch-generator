@@ -5,7 +5,7 @@ export const formatCasing = (
   casing: CasingTypes
 ): string | null => {
   if (!str) return null;
-  console.log(str, casing);
+
   if (casing === CasingTypes.LOWER) {
     return str.toLowerCase();
   } else if (casing === CasingTypes.FIRSTUPPER) {

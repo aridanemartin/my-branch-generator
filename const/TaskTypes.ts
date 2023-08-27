@@ -18,7 +18,7 @@ export enum CasingTypes {
 }
 
 export enum SymbolTypes {
-  DASH = "-",
+  HYPHEN = "-",
   UNDERSCORE = "_",
   SPACE = " ",
   EMPTY = "",

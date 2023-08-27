@@ -3,10 +3,11 @@ import { formatCasing } from "../../helpers/formatCasing";
 import { CasingTypes } from "../../const/TaskTypes";
 
 interface SelectProps {
-  title: string;
   handleResult: (result: string) => void;
   baseClassName: string;
   wordValues: string[];
+  defaultName?: string;
+  defaultSymbol?: string;
   casingValues?: string[];
   symbolValues?: string[];
 }
@@ -16,14 +17,16 @@ export const Select = ({
   handleResult,
   baseClassName,
   wordValues,
+  defaultName = "",
+  defaultSymbol = "",
   casingValues,
   symbolValues,
 }: SelectProps) => {
-  const [selectedWord, setSelectedWord] = useState("");
+  const [selectedWord, setSelectedWord] = useState(defaultName);
+  const [selectedSymbol, setSelectedSymbol] = useState(defaultSymbol);
   const [selectedCasing, setSelectedCasing] = useState<CasingTypes>(
     CasingTypes.FIRSTUPPER
   );
-  const [selectedSymbol, setSelectedSymbol] = useState("/");
   const [result, setResult] = useState("");
 
   useEffect(() => {
@@ -50,9 +53,8 @@ export const Select = ({
 
   return (
     <>
-      <p>{title}</p>
       <select className={baseClassName} onChange={handleWord}>
-        <option value="">--Please choose an option--</option>
+        <option value="/">--Please choose an option--</option>
         {wordValues.map((value) => (
           <option key={value} value={value}>
             {value}
