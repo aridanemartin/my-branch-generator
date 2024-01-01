@@ -13,7 +13,6 @@ interface SelectProps {
 }
 
 export const Select = ({
-  title,
   handleResult,
   baseClassName,
   wordValues,
@@ -37,6 +36,7 @@ export const Select = ({
     if (result) {
       handleResult(result);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result]);
 
   const handleWord = (e: ChangeEvent<HTMLSelectElement>) => {

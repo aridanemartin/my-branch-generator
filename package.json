@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "build": "npm run prep",
+    "prep": "npm run exp && node out.js && robocopy extension/ out/ /E",
+    "exp": "next build && next export",
+    "run": "next start",
+    "dev": "next dev"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -16,8 +17,10 @@
     "@types/node": "18.11.18",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.10",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
     "eslint": "8.30.0",
     "eslint-config-next": "13.1.1",
+    "eslint-plugin-prettier": "^5.1.2",
     "next": "13.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

@@ -7,6 +7,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import TaskBranch from "../screens/TaskBranch/TaskBranch";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -46,7 +47,9 @@ export default function Home() {
 
   return (
     <div className={styles.home}>
-      <Box sx={{ width: "100%" }}>
+      <Box
+      // sx={{ width: "100%", height: "100%" }}
+      >
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
             value={value}
@@ -62,10 +65,10 @@ export default function Home() {
           <ReleaseBranch />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          Item Two
+          <TaskBranch />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          Item Three
+          <TaskBranch />
         </CustomTabPanel>
       </Box>
     </div>

@@ -1,4 +1,19 @@
 body {
+  min-width: 500px;
   margin: 0;
   padding: 0;
+}
+
+.MuiTabs-flexContainer > button {
+  color: white;
+  opacity: 0.5;
+}
+
+.MuiTabs-flexContainer > .Mui-selected {
+  color: white;
+  opacity: 1;
+}
+
+.MuiTabs-scroller > .MuiTabs-indicator {
+  background-color: white;
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 // import styles from "../../shared/styles/Home.module.scss";
 import { Select } from "../../components/Select/Select";
 import { CasingTypes, SymbolTypes, TaskTypes } from "../../const/TaskTypes";
@@ -15,6 +15,15 @@ export default function ReleaseBranch() {
     randomAdjective: "randomAdjective",
     typeOfTask: "feature/",
   });
+
+  const { versionNumber, teamName, randomWord, randomAdjective, typeOfTask } =
+    inputValues;
+
+  const branchName = useMemo(
+    () =>
+      `${typeOfTask}${versionNumber}-${teamName}${randomWord}${randomAdjective}`,
+    [typeOfTask, versionNumber, teamName, randomWord, randomAdjective]
+  );
 
   console.log(inputValues);
   const handleLoading = (isLoading: boolean) => {
@@ -98,19 +107,15 @@ export default function ReleaseBranch() {
           symbolDefault={SymbolTypes.SLASH}
         />
 
-        <h2 className={styles.title}>Copy your branch</h2>
-
-        {isLoading ? (
-          <p>loading</p>
-        ) : (
-          <p>
-            {inputValues.typeOfTask}
-            {inputValues.versionNumber}
-            {inputValues.teamName}
-            {inputValues.randomWord}
-            {inputValues.randomAdjective}
-          </p>
-        )}
+        <p>{isLoading ? "loading" : branchName}</p>
+        <button
+          className={styles.title}
+          onClick={() => {
+            navigator.clipboard.writeText(branchName);
+          }}
+        >
+          Copy your branch
+        </button>
       </div>
     </div>
   );
